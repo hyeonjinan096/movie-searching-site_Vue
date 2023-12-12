@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { reactive, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useMovieStore } from '../store/movies';
+import { useMovieStore } from '~/store/movies';
 import LoadingPage from './LoadingPage.vue';
+import defaultPoster from '~/assets/no_image.png';
 
 const movieStore = useMovieStore();
 const $route = useRoute();
@@ -18,10 +19,18 @@ const movie = reactive({
   imdbRating: '',
 });
 
-onMounted(async () => {
+onMounted(() => {
+  fetchMovieDetails();
+});
+
+async function fetchMovieDetails() {
   await movieStore.readMovieDetails($route.params.imdbiId as string);
   Object.assign(movie, movieStore.movie);
-});
+}
+
+const getPosterPath = (poster: string) => {
+  return poster !== 'N/A' ? poster : defaultPoster;
+};
 </script>
 
 <template>
@@ -34,7 +43,7 @@ onMounted(async () => {
     <div class="grid place-items-center bg-gray-900 text-white">
       <div class="flex p-4 w-4/5 m-10">
         <img
-          :src="movie.Poster"
+          :src="getPosterPath(movie.Poster)"
           alt=""
           class="object-cover rounded-lg mr-4 mb-4 w-4/12" />
         <div class="w-6/12">

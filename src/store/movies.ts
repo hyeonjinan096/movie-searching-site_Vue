@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-export type Movies = Movie[];
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -16,6 +15,14 @@ export interface Movie {
   Released: string;
   imdbRating: string;
 }
+
+export type Movies = {
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
+}[];
 
 export const useMovieStore = defineStore('movie', {
   state: () => ({
@@ -41,7 +48,6 @@ export const useMovieStore = defineStore('movie', {
       const movie: Movie = await res.json();
       this.isLoading = false;
       this.movie = movie;
-      console.log(this.movie);
     },
   },
 });
