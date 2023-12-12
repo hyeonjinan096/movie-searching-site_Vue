@@ -38,7 +38,7 @@ async function goMovieDetail(movieId: string) {
               :src="movie.Poster"
               @error="replaceByDefault"
               alt="movie poster"
-              class="overflow-hidden rounded-lg transition group-hover:scale-90 object-cover group-hover" />
+              class="overflow-hidden rounded-lg transition group-hover:scale-90 object-cover group-hover:brightness-50" />
             <div
               class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center transition duration-300 opacity-0 group-hover:opacity-100">
               <h2
